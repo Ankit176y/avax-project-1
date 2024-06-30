@@ -1,4 +1,4 @@
-Creating New Token
+**Creating New Token**
 This Solidity program is just creating our own Token on remix . The purpose of this program is to create our own token in Solidity and want to get a feel for how it works.
 
 Description
