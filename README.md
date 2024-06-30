@@ -14,26 +14,37 @@ To run this program, you can use Remix, an online Solidity IDE. To get started, 
 
 Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with name "creating_token.sol". Copy and paste the following code into the file:
 
-pragma solidity 0.8.18;
-contract MyToken {
+pragma solidity ^0.8.26;
 
-    string public Token_Name ="Tether";
-    string public Token_Abbrev = "USDT";
-    uint public Total_supply = 0;
+contract RequireAssertRevert {
+    address public owner;
+    uint public balance;
 
-    mapping(address => uint) public Balances;
-
-    function mint (address _Address,uint _Value) public {
-        Total_supply += _Value;
-        Balances[_Address]+= _Value;
+    constructor() {
+        owner = msg.sender;
+        balance = 0;
     }
-    function Burn (address _Address,uint _Value) public {
-        if(Balances[_Address] >= _Value){
-        Total_supply -= _Value;
-        Balances[_Address]-= _Value;
+
+    function deposit(uint _amount) public {
+        require(msg.sender == owner, "Only the owner can deposit");
+        balance += _amount;
+    }
+
+    function withdraw(uint _amount) public {
+        require(_amount <= balance, "Insufficient balance");
+        balance -= _amount;
+        assert(balance >= 0); // Ensuring balance never goes negative
+    }
+
+    function transfer(address _recipient, uint _amount) public {
+        if (_recipient == address(0)) {
+            revert("Cannot transfer to the zero address");
         }
+        require(_amount <= balance, "Insufficient balance");
+        balance -= _amount;
+    }
 }
-}
+
 To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.18" (or another compatible version), and then click on the "Compile creating_token.sol" button.
 
 Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "My Token-creating_token.sol" contract from the dropdown menu, and then click on the "Deploy" button.
