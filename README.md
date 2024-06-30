@@ -1,13 +1,26 @@
-# Using function require,revert,assert
+# Using  require,revert,assert
 
-Simple overview of use/purpose.
+In this project we get to know about error-handling process in solidity
 
 ## Description
+Here there are three methods that constitute the error-handling process in Solidity  
 
-An in-depth paragraph about your project and overview of use.
+require(): Used to validate certain conditions before further execution of a function. It takes two parameters as an input.The first parameter is the condition that you want to validate and the second parameter is the message that will be passed back to the caller if the condition fails.
+
+assert(): The assert function, like require, is a convenience function that checks for conditions. If a condition fails, then the function execution is terminated with an error message
+
+revert(): Can be used to flag an error and revert the current call. You can also provide a message containing details about the error, and the message will be passed back to the caller.
+
+This is link to my source code https://gist.github.com/Ankit176y/c3f66099c79c0e9bb13bbef7183f7167
 
 ## Getting Started
+I Have created a new contract name "RequireAssertRevert" in which Fristly i have initialise constructor in which owner is set msg.sender and balances with amount zero,Next I have created three functions .
 
+1.deposit function : In this function i have used 'require' statement which checks that msg.sender is owner or not. if the sender is not owner then it returns the statement that "only owner can deposit" or if sender is owner then it add that amount to the balances
+
+2.withdraw function : In this function ,I have used require which checks for amout if the amount to be withdraw is less than the balance,if the condition satisify amount is withdrawn from the balances and ,also I have use 'assert' statement that checks that balance should not go zero if balance got zero then if shows with an error message.
+
+3.transfer function: In this function, I have used 'revert' statement which checks for the recipient address that it should not be zero , then again require statement which ensure that the amount is not greater than balance.
 
 ### Executing program
 
