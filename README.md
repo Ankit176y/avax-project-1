@@ -14,8 +14,8 @@ To run this program, you can use Remix, an online Solidity IDE. To get started, 
 
 Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with name "creating_token.sol". Copy and paste the following code into the file:
 
-pragma solidity ^0.8.26;
 
+pragma solidity ^0.8.26;
 contract RequireAssertRevert {
     address public owner;
     uint public balance;
@@ -29,13 +29,11 @@ contract RequireAssertRevert {
         require(msg.sender == owner, "Only the owner can deposit");
         balance += _amount;
     }
-
     function withdraw(uint _amount) public {
         require(_amount <= balance, "Insufficient balance");
         balance -= _amount;
         assert(balance >= 0); // Ensuring balance never goes negative
     }
-
     function transfer(address _recipient, uint _amount) public {
         if (_recipient == address(0)) {
             revert("Cannot transfer to the zero address");
